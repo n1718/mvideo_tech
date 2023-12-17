@@ -34,18 +34,19 @@ class Pyramid:
         else:
             input_text = self.current_str
         for x in input_text:
-            if x not in self.middle_dict:
-                self.middle_dict[x] = 1
-            else:
-                self.middle_dict[x] += 1
-                if self.middle_dict[x] >= 4:
-                    if x not in self.result_dict:
-                        self.result_dict[x] = 1
-                    else:
-                        self.result_dict[x] += 1
-                    self.middle_dict.pop(x)
+            if x.isascii() and x.islower():
+                if x not in self.middle_dict:
+                    self.middle_dict[x] = 1
                 else:
-                    continue
+                    self.middle_dict[x] += 1
+                    if self.middle_dict[x] >= 4:
+                        if x not in self.result_dict:
+                            self.result_dict[x] = 1
+                        else:
+                            self.result_dict[x] += 1
+                        self.middle_dict.pop(x)
+                    else:
+                        continue
         for letter in set(input_text):
             if letter not in self.result_dict.keys():
                 with open('output.txt', 'a+') as out:
